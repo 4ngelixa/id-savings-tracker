@@ -1,24 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--     Fonts and icons     -->
+  <!--     Fonts      -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- Material Kit CSS -->
-  <link href="assets/css/material-kit.css?v=2.0.7" rel="stylesheet" />
   <!-- ref to style.css-->
   <link rel="stylesheet" href="style.css">
+  <link rel="uistyle" href="uistyle.css">
   <h1><b>mySavingsTracker </b></h1>
+  <div class="theme-switch-wrapper">
+		<label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider round"></div>
+  </label>
+  <em> Enable Dark Mode!</em>
+</div>
+<script>
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+
+function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }    
+    
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+    if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+    }
+}
+}
+
+toggleSwitch.addEventListener('change', switchTheme, false);
+</script>
 </head>
 
+<body class = "dark-theme || light-theme"></body>
 <body>
+  <script src = "script.js"></script>
     <div class="main main-raised">
     <div class="container">
       <div class="section text-center">
-        <h2 class="title">Simply type in your daily expenses and we will calculate your savings!</h2>
-      </div>
-    </div>
-  </div>
+        <h2 class="title">Simply type in your weekly expenses and monthly income to calculate your savings!</h2>
+        <h3>  </h3>
+        <h3 id = "answer"></h3>
+
+        Week1 <input type = "text" id = "num1">
+        <br>
+        Week2 <input type = "text" id = "num2">
+        <br>
+        Week3 <input type = "text" id = "num3">
+        <br>
+        Week4 <input type = "text" id = "num4">
+        <br>
+        Week5 <input type = "text" id = "num5">
+        <br>
+        Monthly income <input type = "text" id = "income">
+        <br>
+
+        <br>
+        <button onclick = "calculate()"> Calculate </button>
+    
+        <script>
+        function calculate(){
+            var field1 = document.getElementById("num1").value;
+            var field2 = document.getElementById("num2").value;
+            var field3 = document.getElementById("num3").value;
+            var field4 = document.getElementById("num4").value;
+            var field5 = document.getElementById("num5").value;
+            var field6 = document.getElementById("income").value;
+    
+            var result = parseFloat(field6) - (parseFloat(field1) + parseFloat(field2) + parseFloat(field3) + parseFloat(field4) + parseFloat(field5));
+            
+            if (!isNaN(result)){
+                document.getElementById("answer").innerHTML = "Your monthly savings amount to $"+ result +" :)";
+            }
+        }
+    
+    </script>
   <footer class="footer footer-default">
     <div class="container">
       <nav class="float-left">
@@ -30,7 +96,7 @@
         <script>
           document.write(new Date().getFullYear())
         </script>, Created by
-        <a href="https://www.linkedin.com/in/angelica-s-9513261a8/" target="blank">Angelica Sim</a>
+        <a href="https://github.com/4ngelixa/" target="blank">Angelica Sim</a>
       </div>
     </div>
   </footer>
